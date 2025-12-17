@@ -1,0 +1,145 @@
+[
+  {
+    "Id": 1,
+    "FullName": "\u0418\u0432\u0430\u043D\u043E\u0432 \u0418\u0432\u0430\u043D \u0418\u0432\u0430\u043D\u043E\u0432\u0438\u0447",
+    "Department": "\u041A\u0430\u0444\u0435\u0434\u0440\u0430 \u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u043E\u043D\u043D\u044B\u0445 \u0422\u0435\u0445\u043D\u043E\u043B\u043E\u0433\u0438\u0439",
+    "Gender": "M",
+    "BirthDate": "1980-03-12T00:00:00",
+    "BirthPlace": "\u0433. \u041C\u043E\u0441\u043A\u0432\u0430",
+    "HomeAddress": "\u0433. \u041C\u043E\u0441\u043A\u0432\u0430, \u0443\u043B. \u041B\u0435\u043D\u0438\u043D\u0430, \u0434. 1",
+    "PhoneNumber": "\u002B7 (495) 111-22-33",
+    "Education": "\u0412\u044B\u0441\u0448\u0435\u0435",
+    "GraduatedUniversity": "\u041C\u0413\u0423",
+    "GraduationYear": 2002,
+    "Speciality": "\u041F\u0440\u0438\u043A\u043B\u0430\u0434\u043D\u0430\u044F \u043C\u0430\u0442\u0435\u043C\u0430\u0442\u0438\u043A\u0430",
+    "EducationDocument": "\u0414\u0438\u043F\u043B\u043E\u043C \u0431\u0430\u043A\u0430\u043B\u0430\u0432\u0440\u0430 2002 \u2116123456",
+    "PhotoPath": "Photos/ivanov.png",
+    "AcademicDegree": "\u043A.\u0442.\u043D.",
+    "AcademicTitle": "\u0434\u043E\u0446\u0435\u043D\u0442",
+    "Position": "\u0421\u0442\u0430\u0440\u0448\u0438\u0439 \u043F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u044C",
+    "PassportNumber": "4510 111111",
+    "PassportIssueDate": "2000-05-20T00:00:00",
+    "PassportIssuedBy": "\u041E\u0412\u0414 \u0433. \u041C\u043E\u0441\u043A\u0432\u0430",
+    "EmploymentStartDate": "2003-09-01T00:00:00",
+    "PreviousWorkplaces": [
+      {
+        "Id": 1,
+        "CompanyName": "\u041E\u041E\u041E \u0420\u043E\u0433\u0430 \u0438 \u041A\u043E\u043F\u044B\u0442\u0430",
+        "CompanyAddress": "\u0433. \u041C\u043E\u0441\u043A\u0432\u0430, \u043F\u0440-\u0442 \u041F\u043E\u0431\u0435\u0434\u044B, 10",
+        "CompanyPhone": "\u002B7 (495) 222-33-44",
+        "StartDate": "2002-07-01T00:00:00",
+        "EndDate": "2003-08-31T00:00:00",
+        "LastPosition": "\u0418\u043D\u0436\u0435\u043D\u0435\u0440",
+        "DismissalReason": "\u041F\u043E \u0441\u043E\u0431\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u043C\u0443 \u0436\u0435\u043B\u0430\u043D\u0438\u044E"
+      }
+    ],
+    "PositionChanges": [
+      {
+        "Id": 1,
+        "Reason": "\u041F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0441\u0442\u0432\u0435\u043D\u043D\u0430\u044F \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E\u0441\u0442\u044C",
+        "OrderDate": "2010-06-15T00:00:00",
+        "OrderNumber": "\u041F\u0440\u0438\u043A\u0430\u0437 \u211645",
+        "NewPosition": "\u0421\u0442\u0430\u0440\u0448\u0438\u0439 \u043F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u044C"
+      }
+    ],
+    "Sanctions": [],
+    "Rewards": [
+      {
+        "Id": 1,
+        "Type": "\u0411\u043B\u0430\u0433\u043E\u0434\u0430\u0440\u043D\u043E\u0441\u0442\u044C",
+        "OrderDate": "2018-11-20T00:00:00",
+        "OrderNumber": "\u041F\u0440\u0438\u043A\u0430\u0437 \u2116210",
+        "Notes": "\u0417\u0430 \u0430\u043A\u0442\u0438\u0432\u043D\u0443\u044E \u043D\u0430\u0443\u0447\u043D\u0443\u044E \u0440\u0430\u0431\u043E\u0442\u0443"
+      }
+    ]
+  },
+  {
+    "Id": 2,
+    "FullName": "\u041F\u0435\u0442\u0440\u043E\u0432 \u041F\u0451\u0442\u0440 \u041F\u0435\u0442\u0440\u043E\u0432\u0438\u0447",
+    "Department": "\u041A\u0430\u0444\u0435\u0434\u0440\u0430 \u0424\u0438\u0437\u0438\u043A\u0438",
+    "Gender": "M",
+    "BirthDate": "1975-07-30T00:00:00",
+    "BirthPlace": "\u0433. \u0421\u0430\u043D\u043A\u0442-\u041F\u0435\u0442\u0435\u0440\u0431\u0443\u0440\u0433",
+    "HomeAddress": "\u0433. \u0421\u0430\u043D\u043A\u0442-\u041F\u0435\u0442\u0435\u0440\u0431\u0443\u0440\u0433, \u0443\u043B. \u041D\u0435\u0432\u0441\u043A\u0430\u044F, \u0434. 5",
+    "PhoneNumber": "\u002B7 (812) 555-66-77",
+    "Education": "\u0412\u044B\u0441\u0448\u0435\u0435",
+    "GraduatedUniversity": "\u0421\u041F\u0431\u0413\u0423",
+    "GraduationYear": 1997,
+    "Speciality": "\u0424\u0438\u0437\u0438\u043A\u0430",
+    "EducationDocument": "\u0414\u0438\u043F\u043B\u043E\u043C \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u0438\u0441\u0442\u0430 1997 \u2116654321",
+    "PhotoPath": "Photos/petrov.png",
+    "AcademicDegree": "\u0434.\u0444.-\u043C.\u043D.",
+    "AcademicTitle": "\u043F\u0440\u043E\u0444\u0435\u0441\u0441\u043E\u0440",
+    "Position": "\u041F\u0440\u043E\u0444\u0435\u0441\u0441\u043E\u0440",
+    "PassportNumber": "4510 222222",
+    "PassportIssueDate": "1995-10-10T00:00:00",
+    "PassportIssuedBy": "\u041E\u0412\u0414 \u0433. \u0421\u0430\u043D\u043A\u0442-\u041F\u0435\u0442\u0435\u0440\u0431\u0443\u0440\u0433",
+    "EmploymentStartDate": "1998-02-01T00:00:00",
+    "PreviousWorkplaces": [],
+    "PositionChanges": [],
+    "Sanctions": [
+      {
+        "Id": 1,
+        "Type": "\u0417\u0430\u043C\u0435\u0447\u0430\u043D\u0438\u0435",
+        "OrderDate": "2012-03-01T00:00:00",
+        "OrderNumber": "\u041F\u0440\u0438\u043A\u0430\u0437 \u211612",
+        "Notes": "\u041D\u0430\u0440\u0443\u0448\u0435\u043D\u0438\u0435 \u0434\u0438\u0441\u0446\u0438\u043F\u043B\u0438\u043D\u044B"
+      }
+    ],
+    "Rewards": []
+  },
+  {
+    "Id": 3,
+    "FullName": "\u0421\u0438\u0434\u043E\u0440\u043E\u0432\u0430 \u0410\u043D\u043D\u0430 \u0412\u0430\u043B\u0435\u0440\u044C\u0435\u0432\u043D\u0430",
+    "Department": "\u041A\u0430\u0444\u0435\u0434\u0440\u0430 \u041C\u0435\u043D\u0435\u0434\u0436\u043C\u0435\u043D\u0442\u0430",
+    "Gender": "F",
+    "BirthDate": "1990-05-14T00:00:00",
+    "BirthPlace": "\u0433. \u0422\u043E\u043C\u0441\u043A",
+    "HomeAddress": "\u0433. \u041A\u0430\u0437\u0430\u043D\u044C, \u043F\u0440-\u0442 \u0423\u043D\u0438\u0432\u0435\u0440\u0441\u0438\u0442\u0435\u0442\u0441\u043A\u0438\u0439, \u0434. 12",
+    "PhoneNumber": "\u002B7 (843) 444-55-66",
+    "Education": "\u0412\u044B\u0441\u0448\u0435\u0435",
+    "GraduatedUniversity": "\u041A\u0424\u0423",
+    "GraduationYear": 2012,
+    "Speciality": "\u041C\u0435\u043D\u0435\u0434\u0436\u043C\u0435\u043D\u0442",
+    "EducationDocument": "\u0414\u0438\u043F\u043B\u043E\u043C \u0431\u0430\u043A\u0430\u043B\u0430\u0432\u0440\u0430 2012 \u2116777888",
+    "PhotoPath": "Photos/id2.jpg",
+    "AcademicDegree": "",
+    "AcademicTitle": "",
+    "Position": "\u0421\u0442\u0430\u0440\u0448\u0438\u0439 \u043F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u044C",
+    "PassportNumber": "4510 333333",
+    "PassportIssueDate": "2011-08-05T00:00:00",
+    "PassportIssuedBy": "\u041E\u0412\u0414 \u0433. \u041A\u0430\u0437\u0430\u043D\u044C",
+    "EmploymentStartDate": "2013-09-01T00:00:00",
+    "PreviousWorkplaces": [
+      {
+        "Id": 1,
+        "CompanyName": "\u041E\u041E\u041E \u041A\u043E\u043D\u0441\u0430\u043B\u0442\u0438\u043D\u0433",
+        "CompanyAddress": "\u0433. \u041A\u0430\u0437\u0430\u043D\u044C, \u0443\u043B. \u041F\u0443\u0448\u043A\u0438\u043D\u0430, \u0434. 3",
+        "CompanyPhone": "\u002B7 (843) 111-22-33",
+        "StartDate": "2012-06-01T00:00:00",
+        "EndDate": "2013-08-31T00:00:00",
+        "LastPosition": "\u041C\u043B\u0430\u0434\u0448\u0438\u0439 \u043A\u043E\u043D\u0441\u0443\u043B\u044C\u0442\u0430\u043D\u0442",
+        "DismissalReason": "\u041F\u043E \u0441\u043E\u0433\u043B\u0430\u0441\u043E\u0432\u0430\u043D\u0438\u044E \u0441\u0442\u043E\u0440\u043E\u043D"
+      }
+    ],
+    "PositionChanges": [
+      {
+        "Id": 1,
+        "Reason": "\u041F\u0435\u0440\u0435\u0432\u043E\u0434 \u043F\u043E \u043A\u0430\u0444\u0435\u0434\u0440\u0435",
+        "OrderDate": "2016-09-01T00:00:00",
+        "OrderNumber": "\u041F\u0440\u0438\u043A\u0430\u0437 \u211688",
+        "NewPosition": "\u0421\u0442\u0430\u0440\u0448\u0438\u0439 \u043F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u044C"
+      }
+    ],
+    "Sanctions": [],
+    "Rewards": [
+      {
+        "Id": 1,
+        "Type": "\u041F\u0440\u0435\u043C\u0438\u044F",
+        "OrderDate": "2019-12-15T00:00:00",
+        "OrderNumber": "\u041F\u0440\u0438\u043A\u0430\u0437 \u2116301",
+        "Notes": "\u0417\u0430 \u0443\u0441\u043F\u0435\u0448\u043D\u043E\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430"
+      }
+    ]
+  }
+]
