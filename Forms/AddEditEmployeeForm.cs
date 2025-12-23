@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using UnivPersonnel.Models;
+using UnivPersonnel.Data;
 
 namespace UnivPersonnel.Forms
 {
@@ -40,26 +41,27 @@ namespace UnivPersonnel.Forms
             {
                 Employee = new Employee();
             }
+            RefreshLookupItems();
         }
 
         private void LoadEmployeeData()
         {
             textBoxFullName.Text = Employee.FullName;
-            textBoxDepartment.Text = Employee.Department;
+            SetComboValue(comboBoxDepartment, Employee.Department);
             comboBoxGender.Text = Employee.Gender;
             dateTimePickerBirthDate.Value = Employee.BirthDate;
             textBoxBirthPlace.Text = Employee.BirthPlace;
             textBoxHomeAddress.Text = Employee.HomeAddress;
             textBoxPhone.Text = Employee.PhoneNumber;
-            textBoxEducation.Text = Employee.Education;
+            SetComboValue(comboBoxEducation, Employee.Education);
             textBoxUniversity.Text = Employee.GraduatedUniversity;
             numericUpDownGradYear.Value = Employee.GraduationYear;
             textBoxSpeciality.Text = Employee.Speciality;
             textBoxEducationDoc.Text = Employee.EducationDocument;
             textBoxPhotoPath.Text = Employee.PhotoPath;
-            textBoxDegree.Text = Employee.AcademicDegree;
-            textBoxTitle.Text = Employee.AcademicTitle;
-            textBoxPosition.Text = Employee.Position;
+            SetComboValue(comboBoxDegree, Employee.AcademicDegree);
+            SetComboValue(comboBoxTitle, Employee.AcademicTitle);
+            SetComboValue(comboBoxPosition, Employee.Position);
             textBoxPassportNumber.Text = Employee.PassportNumber;
             dateTimePickerPassportIssue.Value = Employee.PassportIssueDate;
             textBoxPassportIssuedBy.Text = Employee.PassportIssuedBy;
@@ -81,21 +83,21 @@ namespace UnivPersonnel.Forms
             }
 
             Employee.FullName = textBoxFullName.Text;
-            Employee.Department = textBoxDepartment.Text;
+            Employee.Department = comboBoxDepartment.Text;
             Employee.Gender = comboBoxGender.Text;
             Employee.BirthDate = dateTimePickerBirthDate.Value;
             Employee.BirthPlace = textBoxBirthPlace.Text;
             Employee.HomeAddress = textBoxHomeAddress.Text;
             Employee.PhoneNumber = textBoxPhone.Text;
-            Employee.Education = textBoxEducation.Text;
+            Employee.Education = comboBoxEducation.Text;
             Employee.GraduatedUniversity = textBoxUniversity.Text;
             Employee.GraduationYear = (int)numericUpDownGradYear.Value;
             Employee.Speciality = textBoxSpeciality.Text;
             Employee.EducationDocument = textBoxEducationDoc.Text;
             Employee.PhotoPath = textBoxPhotoPath.Text;
-            Employee.AcademicDegree = textBoxDegree.Text;
-            Employee.AcademicTitle = textBoxTitle.Text;
-            Employee.Position = textBoxPosition.Text;
+            Employee.AcademicDegree = comboBoxDegree.Text;
+            Employee.AcademicTitle = comboBoxTitle.Text;
+            Employee.Position = comboBoxPosition.Text;
             Employee.PassportNumber = textBoxPassportNumber.Text;
             Employee.PassportIssueDate = dateTimePickerPassportIssue.Value;
             Employee.PassportIssuedBy = textBoxPassportIssuedBy.Text;
@@ -112,10 +114,10 @@ namespace UnivPersonnel.Forms
             if (string.IsNullOrEmpty(fullName)) { error = "Поле 'ФИО' не должно быть пустым."; return false; }
             if (fullName.Any(char.IsDigit)) { error = "ФИО не должно содержать цифр."; return false; }
 
-            var dept = textBoxDepartment.Text?.Trim() ?? "";
+            var dept = comboBoxDepartment.Text?.Trim() ?? "";
             if (string.IsNullOrEmpty(dept)) { error = "Поле 'Подразделение' не должно быть пустым."; return false; }
 
-            var pos = textBoxPosition.Text?.Trim() ?? "";
+            var pos = comboBoxPosition.Text?.Trim() ?? "";
             if (string.IsNullOrEmpty(pos)) { error = "Поле 'Должность' не должно быть пустым."; return false; }
 
             var phone = textBoxPhone.Text?.Trim() ?? "";
@@ -144,6 +146,38 @@ namespace UnivPersonnel.Forms
             if (dateTimePickerEmploymentStart.Value.Date > DateTime.Today) { error = "Дата приёма на работу не может быть в будущем."; return false; }
 
             return true;
+        }
+
+        private void RefreshLookupItems()
+        {
+            try
+            {
+                comboBoxEducation.Items.Clear();
+                comboBoxEducation.Items.AddRange(LookupService.GetList("Образование").ToArray());
+                comboBoxDepartment.Items.Clear();
+                comboBoxDepartment.Items.AddRange(LookupService.GetList("Подразделение").ToArray());
+                comboBoxPosition.Items.Clear();
+                comboBoxPosition.Items.AddRange(LookupService.GetList("Должность").ToArray());
+                comboBoxDegree.Items.Clear();
+                comboBoxDegree.Items.AddRange(LookupService.GetList("Учёная степень").ToArray());
+                comboBoxTitle.Items.Clear();
+                comboBoxTitle.Items.AddRange(LookupService.GetList("Учёное звание").ToArray());
+            }
+            catch { }
+        }
+
+        private void SetComboValue(ComboBox cb, string? value)
+        {
+            if (string.IsNullOrWhiteSpace(value)) { cb.SelectedIndex = -1; return; }
+            if (!cb.Items.Contains(value)) cb.Items.Add(value);
+            cb.SelectedItem = value;
+        }
+
+        private void buttonManageLookups_Click(object sender, EventArgs e)
+        {
+            var form = new ManageLookupsForm();
+            form.ShowDialog();
+            RefreshLookupItems();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

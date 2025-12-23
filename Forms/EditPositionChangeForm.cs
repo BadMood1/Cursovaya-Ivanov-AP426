@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using UnivPersonnel.Models;
+using UnivPersonnel.Data;
 
 namespace UnivPersonnel.Forms
 {
@@ -8,7 +9,9 @@ namespace UnivPersonnel.Forms
     {
         public PositionChange Change { get; private set; }
 
-        private TextBox tbReason, tbOrderNumber, tbNewPosition;
+        private TextBox tbReason, tbOrderNumber;
+        private ComboBox cbNewPosition;
+        private Button btnManageLookups;
         private DateTimePicker dtOrderDate;
         private Button btnSave, btnCancel;
 
@@ -25,13 +28,15 @@ namespace UnivPersonnel.Forms
             var labelOrderDate = new Label() { Left = 10, Top = 44, AutoSize = true, Text = "Дата приказа:" };
             dtOrderDate = new DateTimePicker() { Left = 10, Top = 72, Width = 200 };
             tbOrderNumber = new TextBox() { Left = 220, Top = 72, Width = 150, PlaceholderText = "Номер приказа" };
-            tbNewPosition = new TextBox() { Left = 10, Top = 104, Width = 360, PlaceholderText = "Новая должность" };
+            cbNewPosition = new ComboBox() { Left = 10, Top = 104, Width = 300, DropDownStyle = ComboBoxStyle.DropDownList };
+            btnManageLookups = new Button() { Left = 320, Top = 104, Width = 50, Text = "..." };
+            btnManageLookups.Click += (s, e) => { var f = new ManageLookupsForm(); f.ShowDialog(); LoadPositions(); };
             btnSave = new Button() { Left = 10, Top = 138, Text = "Сохранить", Width = 100 };
             btnCancel = new Button() { Left = 120, Top = 138, Text = "Отмена", Width = 100 };
             btnSave.Click += (s, e) => { if (TrySave(out var err)) { DialogResult = DialogResult.OK; Close(); } else MessageBox.Show(err, "Ошибка валидации", MessageBoxButtons.OK, MessageBoxIcon.Warning); };
             btnCancel.Click += (s, e) => { DialogResult = DialogResult.Cancel; Close(); };
             this.ClientSize = new System.Drawing.Size(390, 180);
-            this.Controls.AddRange(new Control[] { tbReason, labelOrderDate, dtOrderDate, tbOrderNumber, tbNewPosition, btnSave, btnCancel });
+            this.Controls.AddRange(new Control[] { tbReason, labelOrderDate, dtOrderDate, tbOrderNumber, cbNewPosition, btnManageLookups, btnSave, btnCancel });
             this.Text = "Перемещение по должности";
         }
 
@@ -40,7 +45,24 @@ namespace UnivPersonnel.Forms
             tbReason.Text = Change.Reason;
             dtOrderDate.Value = Change.OrderDate == default ? DateTime.Today : Change.OrderDate;
             tbOrderNumber.Text = Change.OrderNumber;
-            tbNewPosition.Text = Change.NewPosition;
+            LoadPositions();
+            if (!string.IsNullOrEmpty(Change.NewPosition) && cbNewPosition.Items.Contains(Change.NewPosition))
+                cbNewPosition.SelectedItem = Change.NewPosition;
+            else if (!string.IsNullOrEmpty(Change.NewPosition))
+            {
+                cbNewPosition.Items.Add(Change.NewPosition);
+                cbNewPosition.SelectedItem = Change.NewPosition;
+            }
+        }
+
+        private void LoadPositions()
+        {
+            try
+            {
+                cbNewPosition.Items.Clear();
+                cbNewPosition.Items.AddRange(LookupService.GetList("Должность").ToArray());
+            }
+            catch { }
         }
 
         private bool TrySave(out string error)
@@ -48,7 +70,7 @@ namespace UnivPersonnel.Forms
             error = null;
             var reason = tbReason.Text?.Trim() ?? "";
             if (string.IsNullOrEmpty(reason)) { error = "Поле 'Причина' не должно быть пустым."; return false; }
-            var newpos = tbNewPosition.Text?.Trim() ?? "";
+            var newpos = cbNewPosition.Text?.Trim() ?? "";
             if (string.IsNullOrEmpty(newpos)) { error = "Поле 'Новая должность' не должно быть пустым."; return false; }
             var num = tbOrderNumber.Text?.Trim() ?? "";
             if (string.IsNullOrEmpty(num)) { error = "Поле 'Номер приказа' не должно быть пустым."; return false; }
@@ -57,7 +79,7 @@ namespace UnivPersonnel.Forms
             Change.Reason = tbReason.Text;
             Change.OrderDate = dtOrderDate.Value;
             Change.OrderNumber = tbOrderNumber.Text;
-            Change.NewPosition = tbNewPosition.Text;
+            Change.NewPosition = cbNewPosition.Text;
             return true;
         }
     }
