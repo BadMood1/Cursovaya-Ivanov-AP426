@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\andre\\OneDrive\\Desktop\\testing\\Cursovaya-Ivanov-AP426\\UnivPersonnel.csproj": {}
+    "C:\\Users\\andre\\OneDrive\\Desktop\\PrikoLbI\\2coursePROG\\cursovaya_3sem\\UnivPersonnel\\UnivPersonnel.csproj": {}
   },
   "projects": {
-    "C:\\Users\\andre\\OneDrive\\Desktop\\testing\\Cursovaya-Ivanov-AP426\\UnivPersonnel.csproj": {
+    "C:\\Users\\andre\\OneDrive\\Desktop\\PrikoLbI\\2coursePROG\\cursovaya_3sem\\UnivPersonnel\\UnivPersonnel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\andre\\OneDrive\\Desktop\\testing\\Cursovaya-Ivanov-AP426\\UnivPersonnel.csproj",
+        "projectUniqueName": "C:\\Users\\andre\\OneDrive\\Desktop\\PrikoLbI\\2coursePROG\\cursovaya_3sem\\UnivPersonnel\\UnivPersonnel.csproj",
         "projectName": "UnivPersonnel",
-        "projectPath": "C:\\Users\\andre\\OneDrive\\Desktop\\testing\\Cursovaya-Ivanov-AP426\\UnivPersonnel.csproj",
+        "projectPath": "C:\\Users\\andre\\OneDrive\\Desktop\\PrikoLbI\\2coursePROG\\cursovaya_3sem\\UnivPersonnel\\UnivPersonnel.csproj",
         "packagesPath": "C:\\Users\\andre\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\andre\\OneDrive\\Desktop\\testing\\Cursovaya-Ivanov-AP426\\obj\\",
+        "outputPath": "C:\\Users\\andre\\OneDrive\\Desktop\\PrikoLbI\\2coursePROG\\cursovaya_3sem\\UnivPersonnel\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\andre\\AppData\\Roaming\\NuGet\\NuGet.Config"
