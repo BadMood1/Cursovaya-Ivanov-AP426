@@ -6,12 +6,15 @@ namespace UnivPersonnel.Forms
 
         private System.Windows.Forms.TextBox textBoxFullName;
         private System.Windows.Forms.ComboBox comboBoxDepartment;
+        private System.Windows.Forms.Label labelDepartment;
         private System.Windows.Forms.ComboBox comboBoxGender;
+        private System.Windows.Forms.Label labelGender;
         private System.Windows.Forms.DateTimePicker dateTimePickerBirthDate;
         private System.Windows.Forms.TextBox textBoxBirthPlace;
         private System.Windows.Forms.TextBox textBoxHomeAddress;
         private System.Windows.Forms.TextBox textBoxPhone;
         private System.Windows.Forms.ComboBox comboBoxEducation;
+        private System.Windows.Forms.Label labelEducation;
         private System.Windows.Forms.TextBox textBoxUniversity;
         private System.Windows.Forms.NumericUpDown numericUpDownGradYear;
         private System.Windows.Forms.Label labelGradYear;
@@ -19,8 +22,11 @@ namespace UnivPersonnel.Forms
         private System.Windows.Forms.TextBox textBoxEducationDoc;
         private System.Windows.Forms.TextBox textBoxPhotoPath;
         private System.Windows.Forms.ComboBox comboBoxDegree;
+        private System.Windows.Forms.Label labelDegree;
         private System.Windows.Forms.ComboBox comboBoxTitle;
+        private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.ComboBox comboBoxPosition;
+        private System.Windows.Forms.Label labelPosition;
         private System.Windows.Forms.Button buttonManageLookups;
         private System.Windows.Forms.TextBox textBoxPassportNumber;
         private System.Windows.Forms.DateTimePicker dateTimePickerPassportIssue;
@@ -91,19 +97,31 @@ namespace UnivPersonnel.Forms
             this.textBoxFullName.PlaceholderText = "ФИО";
             this.textBoxFullName.Size = new System.Drawing.Size(300, 27);
 
-            this.comboBoxDepartment.Location = new System.Drawing.Point(12, 45);
+            this.comboBoxDepartment.Location = new System.Drawing.Point(120, 45);
             this.comboBoxDepartment.Name = "comboBoxDepartment";
-            this.comboBoxDepartment.Size = new System.Drawing.Size(300, 27);
+            this.comboBoxDepartment.Size = new System.Drawing.Size(200, 27);
             this.comboBoxDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 
-            this.comboBoxGender.Location = new System.Drawing.Point(12, 78);
+            this.labelDepartment = new System.Windows.Forms.Label();
+            this.labelDepartment.AutoSize = true;
+            this.labelDepartment.Location = new System.Drawing.Point(12, 50);
+            this.labelDepartment.Name = "labelDepartment";
+            this.labelDepartment.Text = "Подразделение:";
+
+            this.comboBoxGender.Location = new System.Drawing.Point(120, 78);
             this.comboBoxGender.Name = "comboBoxGender";
             this.comboBoxGender.Size = new System.Drawing.Size(100, 28);
-            this.comboBoxGender.Items.AddRange(new object[] { "M", "F" });
+            this.comboBoxGender.Items.AddRange(new object[] { "Муж.", "Жен." });
+
+            this.labelGender = new System.Windows.Forms.Label();
+            this.labelGender.AutoSize = true;
+            this.labelGender.Location = new System.Drawing.Point(12, 82);
+            this.labelGender.Name = "labelGender";
+            this.labelGender.Text = "Пол:";
 
             this.dateTimePickerBirthDate.Location = new System.Drawing.Point(12, 112);
             this.dateTimePickerBirthDate.Name = "dateTimePickerBirthDate";
-            this.dateTimePickerBirthDate.Size = new System.Drawing.Size(200, 27);
+            this.dateTimePickerBirthDate.Size = new System.Drawing.Size(210, 27);
 
             this.textBoxBirthPlace.Location = new System.Drawing.Point(12, 145);
             this.textBoxBirthPlace.PlaceholderText = "Место рождения";
@@ -117,10 +135,16 @@ namespace UnivPersonnel.Forms
             this.textBoxPhone.PlaceholderText = "Телефон";
             this.textBoxPhone.Size = new System.Drawing.Size(200, 27);
 
-            this.comboBoxEducation.Location = new System.Drawing.Point(12, 244);
+            this.comboBoxEducation.Location = new System.Drawing.Point(120, 244);
             this.comboBoxEducation.Name = "comboBoxEducation";
             this.comboBoxEducation.Size = new System.Drawing.Size(200, 27);
             this.comboBoxEducation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+
+            this.labelEducation = new System.Windows.Forms.Label();
+            this.labelEducation.AutoSize = true;
+            this.labelEducation.Location = new System.Drawing.Point(12, 248);
+            this.labelEducation.Name = "labelEducation";
+            this.labelEducation.Text = "Образование:";
 
             this.textBoxUniversity.Location = new System.Drawing.Point(12, 277);
             this.textBoxUniversity.PlaceholderText = "Учебное заведение";
@@ -149,22 +173,40 @@ namespace UnivPersonnel.Forms
             this.textBoxPhotoPath.PlaceholderText = "Путь к фото";
             this.textBoxPhotoPath.Size = new System.Drawing.Size(300, 27);
 
-            this.comboBoxDegree.Location = new System.Drawing.Point(350, 52);
+            this.comboBoxDegree.Location = new System.Drawing.Point(470, 52);
             this.comboBoxDegree.Name = "comboBoxDegree";
             this.comboBoxDegree.Size = new System.Drawing.Size(200, 27);
             this.comboBoxDegree.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 
-            this.comboBoxTitle.Location = new System.Drawing.Point(350, 85);
+            this.labelDegree = new System.Windows.Forms.Label();
+            this.labelDegree.AutoSize = true;
+            this.labelDegree.Location = new System.Drawing.Point(370, 56);
+            this.labelDegree.Name = "labelDegree";
+            this.labelDegree.Text = "Учёная степень:";
+
+            this.comboBoxTitle.Location = new System.Drawing.Point(470, 85);
             this.comboBoxTitle.Name = "comboBoxTitle";
             this.comboBoxTitle.Size = new System.Drawing.Size(200, 27);
             this.comboBoxTitle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 
-            this.comboBoxPosition.Location = new System.Drawing.Point(350, 118);
+            this.labelTitle = new System.Windows.Forms.Label();
+            this.labelTitle.AutoSize = true;
+            this.labelTitle.Location = new System.Drawing.Point(380, 89);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Text = "Учёное звание:";
+
+            this.comboBoxPosition.Location = new System.Drawing.Point(470, 118);
             this.comboBoxPosition.Name = "comboBoxPosition";
             this.comboBoxPosition.Size = new System.Drawing.Size(200, 27);
             this.comboBoxPosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 
-            this.buttonManageLookups.Location = new System.Drawing.Point(350, 10);
+            this.labelPosition = new System.Windows.Forms.Label();
+            this.labelPosition.AutoSize = true;
+            this.labelPosition.Location = new System.Drawing.Point(380, 122);
+            this.labelPosition.Name = "labelPosition";
+            this.labelPosition.Text = "Должность:";
+
+            this.buttonManageLookups.Location = new System.Drawing.Point(470, 10);
             this.buttonManageLookups.Name = "buttonManageLookups";
             this.buttonManageLookups.Size = new System.Drawing.Size(80, 28);
             this.buttonManageLookups.Text = "Справки";
@@ -172,37 +214,37 @@ namespace UnivPersonnel.Forms
 
             var labelPassportNumber = new System.Windows.Forms.Label();
             labelPassportNumber.AutoSize = true;
-            labelPassportNumber.Location = new System.Drawing.Point(350, 111);
+            labelPassportNumber.Location = new System.Drawing.Point(470, 111);
             labelPassportNumber.Name = "labelPassportNumber";
             labelPassportNumber.Text = "Данные паспорта:";
 
-            this.textBoxPassportNumber.Location = new System.Drawing.Point(350, 150);
+            this.textBoxPassportNumber.Location = new System.Drawing.Point(470, 150);
             this.textBoxPassportNumber.PlaceholderText = "Данные паспорта(ХХХХ ХХХХХХ)";
             this.textBoxPassportNumber.Size = new System.Drawing.Size(200, 27);
 
             var labelPassportIssue = new System.Windows.Forms.Label();
             labelPassportIssue.AutoSize = true;
-            labelPassportIssue.Location = new System.Drawing.Point(350, 192);
+            labelPassportIssue.Location = new System.Drawing.Point(470, 192);
             labelPassportIssue.Name = "labelPassportIssue";
             labelPassportIssue.Text = "Дата выдачи паспорта:";
 
-            this.dateTimePickerPassportIssue.Location = new System.Drawing.Point(350, 220);
+            this.dateTimePickerPassportIssue.Location = new System.Drawing.Point(470, 220);
             this.dateTimePickerPassportIssue.Name = "dateTimePickerPassportIssue";
             this.dateTimePickerPassportIssue.Size = new System.Drawing.Size(200, 27);
 
 
 
-            this.textBoxPassportIssuedBy.Location = new System.Drawing.Point(350, 260);
+            this.textBoxPassportIssuedBy.Location = new System.Drawing.Point(470, 260);
             this.textBoxPassportIssuedBy.PlaceholderText = "Кем выдан";
             this.textBoxPassportIssuedBy.Size = new System.Drawing.Size(200, 27);
 
             var labelEmploymentStart = new System.Windows.Forms.Label();
             labelEmploymentStart.AutoSize = true;
-            labelEmploymentStart.Location = new System.Drawing.Point(350, 300);
+            labelEmploymentStart.Location = new System.Drawing.Point(470, 300);
             labelEmploymentStart.Name = "labelEmploymentStart";
             labelEmploymentStart.Text = "Дата приёма:";
 
-            this.dateTimePickerEmploymentStart.Location = new System.Drawing.Point(350, 330);
+            this.dateTimePickerEmploymentStart.Location = new System.Drawing.Point(470, 330);
             this.dateTimePickerEmploymentStart.Name = "dateTimePickerEmploymentStart";
             this.dateTimePickerEmploymentStart.Size = new System.Drawing.Size(200, 27);
 
@@ -222,7 +264,7 @@ namespace UnivPersonnel.Forms
             this.tabControlCollections = new System.Windows.Forms.TabControl();
             this.tabControlCollections.Location = new System.Drawing.Point(12, 500);
             this.tabControlCollections.Name = "tabControlCollections";
-            this.tabControlCollections.Size = new System.Drawing.Size(560, 240);
+            this.tabControlCollections.Size = new System.Drawing.Size(720, 240);
 
             var tabPrev = new System.Windows.Forms.TabPage("Предыдущие места");
             this.dataGridPrevWork = new System.Windows.Forms.DataGridView();
@@ -231,7 +273,7 @@ namespace UnivPersonnel.Forms
             this.btnDelPrev = new System.Windows.Forms.Button();
             // prev controls
             this.dataGridPrevWork.Location = new System.Drawing.Point(6, 6);
-            this.dataGridPrevWork.Size = new System.Drawing.Size(520, 160);
+            this.dataGridPrevWork.Size = new System.Drawing.Size(680, 160);
             this.btnAddPrev.Location = new System.Drawing.Point(6, 172);
             this.btnAddPrev.Size = new System.Drawing.Size(80, 28);
             this.btnAddPrev.Text = "Добавить";
@@ -255,7 +297,7 @@ namespace UnivPersonnel.Forms
             this.btnEditPos = new System.Windows.Forms.Button();
             this.btnDelPos = new System.Windows.Forms.Button();
             this.dataGridPositionChanges.Location = new System.Drawing.Point(6, 6);
-            this.dataGridPositionChanges.Size = new System.Drawing.Size(520, 160);
+            this.dataGridPositionChanges.Size = new System.Drawing.Size(680, 160);
             this.btnAddPos.Location = new System.Drawing.Point(6, 172);
             this.btnAddPos.Size = new System.Drawing.Size(80, 28);
             this.btnAddPos.Text = "Добавить";
@@ -279,7 +321,7 @@ namespace UnivPersonnel.Forms
             this.btnEditSan = new System.Windows.Forms.Button();
             this.btnDelSan = new System.Windows.Forms.Button();
             this.dataGridSanctions.Location = new System.Drawing.Point(6, 6);
-            this.dataGridSanctions.Size = new System.Drawing.Size(520, 160);
+            this.dataGridSanctions.Size = new System.Drawing.Size(680, 160);
             this.btnAddSan.Location = new System.Drawing.Point(6, 172);
             this.btnAddSan.Size = new System.Drawing.Size(80, 28);
             this.btnAddSan.Text = "Добавить";
@@ -303,7 +345,7 @@ namespace UnivPersonnel.Forms
             this.btnEditRew = new System.Windows.Forms.Button();
             this.btnDelRew = new System.Windows.Forms.Button();
             this.dataGridRewards.Location = new System.Drawing.Point(6, 6);
-            this.dataGridRewards.Size = new System.Drawing.Size(520, 160);
+            this.dataGridRewards.Size = new System.Drawing.Size(680, 160);
             this.btnAddRew.Location = new System.Drawing.Point(6, 172);
             this.btnAddRew.Size = new System.Drawing.Size(80, 28);
             this.btnAddRew.Text = "Добавить";
@@ -329,22 +371,29 @@ namespace UnivPersonnel.Forms
             // 
             // AddEditEmployeeForm
             // 
-            this.ClientSize = new System.Drawing.Size(600, 760);
+            this.ClientSize = new System.Drawing.Size(740, 760);
             this.Controls.Add(this.textBoxFullName);
+            this.Controls.Add(this.labelDepartment);
             this.Controls.Add(this.comboBoxDepartment);
+            this.Controls.Add(this.labelGender);
+            this.Controls.Add(this.comboBoxGender);
             this.Controls.Add(this.comboBoxGender);
             this.Controls.Add(this.dateTimePickerBirthDate);
             this.Controls.Add(this.textBoxBirthPlace);
             this.Controls.Add(this.textBoxHomeAddress);
             this.Controls.Add(this.textBoxPhone);
+            this.Controls.Add(this.labelEducation);
             this.Controls.Add(this.comboBoxEducation);
             this.Controls.Add(this.textBoxUniversity);
             this.Controls.Add(this.numericUpDownGradYear);
             this.Controls.Add(this.textBoxSpeciality);
             this.Controls.Add(this.textBoxEducationDoc);
             this.Controls.Add(this.textBoxPhotoPath);
+            this.Controls.Add(this.labelDegree);
             this.Controls.Add(this.comboBoxDegree);
+            this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.comboBoxTitle);
+            this.Controls.Add(this.labelPosition);
             this.Controls.Add(this.comboBoxPosition);
             this.Controls.Add(this.buttonManageLookups);
             this.Controls.Add(this.textBoxPassportNumber);

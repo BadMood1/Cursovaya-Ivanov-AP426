@@ -19,6 +19,9 @@ namespace UnivPersonnel.Forms
         {
             InitializeComponent();
 
+            // Load lookup lists first so ComboBoxes contain items before selecting values
+            RefreshLookupItems();
+
             bsPrev = new System.Windows.Forms.BindingSource();
             bsPos = new System.Windows.Forms.BindingSource();
             bsSan = new System.Windows.Forms.BindingSource();
@@ -41,7 +44,6 @@ namespace UnivPersonnel.Forms
             {
                 Employee = new Employee();
             }
-            RefreshLookupItems();
         }
 
         private void LoadEmployeeData()
@@ -120,6 +122,9 @@ namespace UnivPersonnel.Forms
             var pos = comboBoxPosition.Text?.Trim() ?? "";
             if (string.IsNullOrEmpty(pos)) { error = "Поле 'Должность' не должно быть пустым."; return false; }
 
+            var education = comboBoxEducation.Text?.Trim() ?? "";
+            if (string.IsNullOrEmpty(education)) { error = "Поле 'Образование' не должно быть пустым."; return false; }
+
             var phone = textBoxPhone.Text?.Trim() ?? "";
             if (string.IsNullOrEmpty(phone)) { error = "Поле 'Телефон' не должно быть пустым."; return false; }
             // Normalize phone: keep digits only
@@ -169,8 +174,24 @@ namespace UnivPersonnel.Forms
         private void SetComboValue(ComboBox cb, string? value)
         {
             if (string.IsNullOrWhiteSpace(value)) { cb.SelectedIndex = -1; return; }
-            if (!cb.Items.Contains(value)) cb.Items.Add(value);
-            cb.SelectedItem = value;
+            var val = value.Trim();
+            var idx = cb.FindStringExact(val);
+            if (idx >= 0)
+            {
+                cb.SelectedIndex = idx;
+                return;
+            }
+            // try trimming items or adding the trimmed value
+            foreach (var item in cb.Items)
+            {
+                if (item is string s && s.Trim() == val)
+                {
+                    cb.SelectedItem = item;
+                    return;
+                }
+            }
+            cb.Items.Add(val);
+            cb.SelectedItem = val;
         }
 
         private void buttonManageLookups_Click(object sender, EventArgs e)

@@ -28,15 +28,16 @@ namespace UnivPersonnel.Forms
             var labelOrderDate = new Label() { Left = 10, Top = 44, AutoSize = true, Text = "Дата приказа:" };
             dtOrderDate = new DateTimePicker() { Left = 10, Top = 72, Width = 200 };
             tbOrderNumber = new TextBox() { Left = 220, Top = 72, Width = 150, PlaceholderText = "Номер приказа" };
-            cbNewPosition = new ComboBox() { Left = 10, Top = 104, Width = 300, DropDownStyle = ComboBoxStyle.DropDownList };
-            btnManageLookups = new Button() { Left = 320, Top = 104, Width = 50, Text = "..." };
+            var labelNewPosition = new Label() { Left = 10, Top = 104, AutoSize = true, Text = "Должность:" };
+            cbNewPosition = new ComboBox() { Left = 10, Top = 128, Width = 300, DropDownStyle = ComboBoxStyle.DropDownList };
+            btnManageLookups = new Button() { Left = 320, Top = 128, Width = 50, Text = "..." };
             btnManageLookups.Click += (s, e) => { var f = new ManageLookupsForm(); f.ShowDialog(); LoadPositions(); };
-            btnSave = new Button() { Left = 10, Top = 138, Text = "Сохранить", Width = 100 };
-            btnCancel = new Button() { Left = 120, Top = 138, Text = "Отмена", Width = 100 };
+            btnSave = new Button() { Left = 10, Top = 168, Text = "Сохранить", Width = 100 };
+            btnCancel = new Button() { Left = 120, Top = 168, Text = "Отмена", Width = 100 };
             btnSave.Click += (s, e) => { if (TrySave(out var err)) { DialogResult = DialogResult.OK; Close(); } else MessageBox.Show(err, "Ошибка валидации", MessageBoxButtons.OK, MessageBoxIcon.Warning); };
             btnCancel.Click += (s, e) => { DialogResult = DialogResult.Cancel; Close(); };
-            this.ClientSize = new System.Drawing.Size(390, 180);
-            this.Controls.AddRange(new Control[] { tbReason, labelOrderDate, dtOrderDate, tbOrderNumber, cbNewPosition, btnManageLookups, btnSave, btnCancel });
+            this.ClientSize = new System.Drawing.Size(390, 220);
+            this.Controls.AddRange(new Control[] { tbReason, labelOrderDate, dtOrderDate, tbOrderNumber, labelNewPosition, cbNewPosition, btnManageLookups, btnSave, btnCancel });
             this.Text = "Перемещение по должности";
         }
 

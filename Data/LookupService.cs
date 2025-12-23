@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,7 +25,6 @@ namespace UnivPersonnel.Data
                 var dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
                 while (dir != null)
                 {
-                    // ищем .csproj в родительских папках
                     var csproj = dir.GetFiles("*.csproj").FirstOrDefault();
                     if (csproj != null)
                     {
@@ -43,12 +42,10 @@ namespace UnivPersonnel.Data
         public static void EnsureLoaded()
         {
             if (store != null) return;
-            // убеждаемся, что runtime-папка существует
             var runtimeDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
             if (!Directory.Exists(runtimeDir)) Directory.CreateDirectory(runtimeDir);
 
             string? loadPath = null;
-            // приоритет — проектная копия (чтобы правки сохранялись в исходниках)
             if (projectPath != null && File.Exists(projectPath)) loadPath = projectPath;
             else if (File.Exists(runtimePath)) loadPath = runtimePath;
 
@@ -84,7 +81,7 @@ namespace UnivPersonnel.Data
                 "Высшее - магистратура",
                 "Аспирантура",
                 "Докторантура",
-                "Дополнительное профессиональное"
+                "Дополнит. профессиональное"
             };
             s.Profiles[profile]["Подразделение"] = new List<string>
             {
@@ -100,22 +97,25 @@ namespace UnivPersonnel.Data
             {
                 "Ассистент",
                 "Старший преподаватель",
-                "Доцент",
-                "Профессор",
                 "Инженер",
                 "Лаборант"
             };
 
             s.Profiles[profile]["Учёная степень"] = new List<string>
             {
+                "Не имеется",
                 "Кандидат наук",
                 "Доктор наук",
             };
 
             s.Profiles[profile]["Учёное звание"] = new List<string>
             {
-                "Старший преподаватель",
+                "Не имеется",
+                "Доцент",
+                "Профессор",
+                "Старший научный сотрудник",
                 "Ведущий научный сотрудник",
+                "Главный научный сотрудник",
             };
 
             s.ActiveProfile = profile;
@@ -127,7 +127,6 @@ namespace UnivPersonnel.Data
             EnsureLoaded();
             var options = new JsonSerializerOptions { WriteIndented = true };
             var json = JsonSerializer.Serialize(store, options);
-            // Сохраняем в projectPath (если есть), и в runtimePath — чтобы приложение использовало актуальную копию
             try
             {
                 if (projectPath != null)
@@ -164,19 +163,7 @@ namespace UnivPersonnel.Data
             EnsureLoaded();
             if (!store.Profiles.ContainsKey(profile))
             {
-                // create empty profile with basic education list
-                store.Profiles[profile] = new Dictionary<string, List<string>>();
-                store.Profiles[profile]["Образование"] = new List<string>
-                {
-                    "Среднее общее",
-                    "Среднее профессиональное",
-                    "Высшее - бакалавриат",
-                    "Высшее - специалитет",
-                    "Высшее - магистратура",
-                    "Аспирантура",
-                    "Докторантура",
-                    "Дополнительное профессиональное"
-                };
+                CreateProfile(profile);
             }
             store.ActiveProfile = profile;
             Save();
@@ -190,8 +177,14 @@ namespace UnivPersonnel.Data
             var profile = store.Profiles[store.ActiveProfile];
             if (!profile.ContainsKey(type))
             {
-                // если запрошен список, которого нет — создаём пустой
-                profile[type] = new List<string>();
+                if (store.Profiles.TryGetValue("По умолчанию", out var defProfile) && defProfile != null && defProfile.TryGetValue(type, out var defList))
+                {
+                    profile[type] = new List<string>(defList);
+                }
+                else
+                {
+                    profile[type] = new List<string>();
+                }
                 Save();
             }
             return profile[type];
@@ -203,6 +196,8 @@ namespace UnivPersonnel.Data
             if (value == null) throw new ArgumentException("Значение не может быть пустым", nameof(value));
             var v = value.Trim();
             if (string.IsNullOrWhiteSpace(v)) throw new ArgumentException("Значение не может быть пустым", nameof(value));
+            if (type == "Образование" || type == "Учёная степень")
+                throw new ArgumentException("Этот список нельзя изменять.", nameof(type));
             var list = GetList(type);
             if (!list.Contains(v))
             {
@@ -214,6 +209,8 @@ namespace UnivPersonnel.Data
         public static void RemoveItem(string type, string value)
         {
             EnsureLoaded();
+            if (type == "Образование" || type == "Учёная степень")
+                throw new ArgumentException("Этот список нельзя изменять.", nameof(type));
             var list = GetList(type);
             if (list.Contains(value))
             {
@@ -228,6 +225,8 @@ namespace UnivPersonnel.Data
             if (newValue == null) throw new ArgumentException("Новое значение не может быть пустым", nameof(newValue));
             var nv = newValue.Trim();
             if (string.IsNullOrWhiteSpace(nv)) throw new ArgumentException("Новое значение не может быть пустым", nameof(newValue));
+            if (type == "Образование" || type == "Учёная степень")
+                throw new ArgumentException("Этот список нельзя изменять.", nameof(type));
             var list = GetList(type);
             var idx = list.IndexOf(oldValue);
             if (idx >= 0) { list[idx] = nv; Save(); }
@@ -236,9 +235,18 @@ namespace UnivPersonnel.Data
         public static void CreateProfile(string name)
         {
             EnsureLoaded();
+            if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("Имя профиля не может быть пустым", nameof(name));
             if (!store.Profiles.ContainsKey(name))
             {
-                store.Profiles[name] = new Dictionary<string, List<string>>();
+                var newProfile = new Dictionary<string, List<string>>();
+                if (store.Profiles.TryGetValue("По умолчанию", out var def) && def != null)
+                {
+                    foreach (var kv in def)
+                    {
+                        newProfile[kv.Key] = new List<string>(kv.Value);
+                    }
+                }
+                store.Profiles[name] = newProfile;
                 Save();
             }
         }
@@ -248,7 +256,6 @@ namespace UnivPersonnel.Data
             EnsureLoaded();
             if (name == "По умолчанию")
             {
-                // Нельзя удалять профиль по умолчанию
                 return;
             }
             if (store.Profiles.ContainsKey(name))
