@@ -244,12 +244,22 @@ namespace UnivPersonnel.Forms
                 SetComboValue(comboBoxEducation, prevEducation);
                 SetComboValue(comboBoxDegree, prevDegree);
 
-                // If profile unchanged, preserve other selections; otherwise clear dependent fields (but not education/degree)
+                // If profile unchanged, preserve other selections only if they still exist in the refreshed lists;
+                // otherwise clear them. If profile changed, always clear dependent fields (but not education/degree).
+                var deptItems = LookupService.GetList("Подразделение");
+                var posItems = LookupService.GetList("Должность");
+                var titleItems = LookupService.GetList("Учёное звание");
+
                 if (!string.IsNullOrEmpty(_lastActiveProfile) && _lastActiveProfile == currentProfile)
                 {
-                    SetComboValue(comboBoxDepartment, prevDept);
-                    SetComboValue(comboBoxPosition, prevPosition);
-                    SetComboValue(comboBoxTitle, prevTitle);
+                    if (!string.IsNullOrEmpty(prevDept) && deptItems.Contains(prevDept)) SetComboValue(comboBoxDepartment, prevDept);
+                    else { comboBoxDepartment.SelectedIndex = -1; comboBoxDepartment.Text = ""; }
+
+                    if (!string.IsNullOrEmpty(prevPosition) && posItems.Contains(prevPosition)) SetComboValue(comboBoxPosition, prevPosition);
+                    else { comboBoxPosition.SelectedIndex = -1; comboBoxPosition.Text = ""; }
+
+                    if (!string.IsNullOrEmpty(prevTitle) && titleItems.Contains(prevTitle)) SetComboValue(comboBoxTitle, prevTitle);
+                    else { comboBoxTitle.SelectedIndex = -1; comboBoxTitle.Text = ""; }
                 }
                 else
                 {

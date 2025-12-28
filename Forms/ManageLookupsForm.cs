@@ -158,7 +158,7 @@ namespace UnivPersonnel.Forms
                 MessageBox.Show("Профиль 'По умолчанию' нельзя удалить.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (MessageBox.Show($"Удалить профиль '{name}'?", "Подтвердить", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
+            if (MessageBox.Show($"Удалить профиль '{name}'?\nУЧТИТЕ, ЧТО данные сотрудников не пострадают, но могут потребовать изменений", "Подтвердить", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
             LookupService.DeleteProfile(name);
             RefreshProfiles();
             RefreshItems();

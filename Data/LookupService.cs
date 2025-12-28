@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using UnivPersonnel.Models;
 
 namespace UnivPersonnel.Data
 {
@@ -215,6 +216,7 @@ namespace UnivPersonnel.Data
             if (list.Contains(value))
             {
                 list.Remove(value);
+                try { UpdateEmployeesForLookup(type, value, "-"); } catch { }
                 Save();
             }
         }
@@ -229,7 +231,53 @@ namespace UnivPersonnel.Data
                 throw new ArgumentException("Этот список нельзя изменять.", nameof(type));
             var list = GetList(type);
             var idx = list.IndexOf(oldValue);
-            if (idx >= 0) { list[idx] = nv; Save(); }
+            if (idx >= 0)
+            {
+                list[idx] = nv;
+                try { UpdateEmployeesForLookup(type, oldValue, nv); } catch { }
+                Save();
+            }
+        }
+
+        // Update all employees: replace occurrences of oldValue for given lookup type with newValue
+        private static void UpdateEmployeesForLookup(string type, string oldValue, string newValue)
+        {
+            try
+            {
+                var employees = JsonDataService.LoadEmployees();
+                var changed = false;
+                foreach (var e in employees)
+                {
+                    switch (type)
+                    {
+                        case "Подразделение":
+                            if (e.Department == oldValue) { e.Department = newValue; changed = true; }
+                            break;
+                        case "Должность":
+                            if (e.Position == oldValue) { e.Position = newValue; changed = true; }
+                            break;
+                        case "Учёная степень":
+                            if (e.AcademicDegree == oldValue) { e.AcademicDegree = newValue; changed = true; }
+                            break;
+                        case "Учёное звание":
+                            if (e.AcademicTitle == oldValue) { e.AcademicTitle = newValue; changed = true; }
+                            break;
+                        case "Образование":
+                            if (e.Education == oldValue) { e.Education = newValue; changed = true; }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if (changed)
+                {
+                    JsonDataService.SaveEmployees(employees);
+                }
+            }
+            catch
+            {
+                // non-fatal
+            }
         }
 
         public static void CreateProfile(string name)
