@@ -167,5 +167,12 @@ namespace UnivPersonnel.Forms
             using var form = new EmployeeDetailsForm(emp);
             form.ShowDialog(this);
         }
+
+        private void buttonLookups_Click(object sender, EventArgs e)
+        {
+            using var form = new ManageLookupsForm();
+            form.ShowDialog(this);
+            // No automatic reload of employees required here; lookup changes affect add/edit forms when opened.
+        }
     }
 }

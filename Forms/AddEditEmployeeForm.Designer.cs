@@ -23,6 +23,7 @@ namespace UnivPersonnel.Forms
         private System.Windows.Forms.TextBox textBoxPhotoPath;
         private System.Windows.Forms.ComboBox comboBoxDegree;
         private System.Windows.Forms.Label labelDegree;
+        private System.Windows.Forms.Label labelLookupProfile;
         private System.Windows.Forms.ComboBox comboBoxTitle;
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.ComboBox comboBoxPosition;
@@ -97,16 +98,18 @@ namespace UnivPersonnel.Forms
             this.textBoxFullName.PlaceholderText = "ФИО";
             this.textBoxFullName.Size = new System.Drawing.Size(300, 27);
 
-            this.comboBoxDepartment.Location = new System.Drawing.Point(120, 45);
+            // department will be placed lower (swapped with university)
+            this.comboBoxDepartment.Location = new System.Drawing.Point(120, 277);
             this.comboBoxDepartment.Name = "comboBoxDepartment";
             this.comboBoxDepartment.Size = new System.Drawing.Size(200, 27);
             this.comboBoxDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 
+            // label for university (moved up)
             this.labelDepartment = new System.Windows.Forms.Label();
             this.labelDepartment.AutoSize = true;
             this.labelDepartment.Location = new System.Drawing.Point(12, 50);
             this.labelDepartment.Name = "labelDepartment";
-            this.labelDepartment.Text = "Подразделение:";
+            this.labelDepartment.Text = "Учеб. заведение:";
 
             this.comboBoxGender.Location = new System.Drawing.Point(120, 78);
             this.comboBoxGender.Name = "comboBoxGender";
@@ -146,9 +149,18 @@ namespace UnivPersonnel.Forms
             this.labelEducation.Name = "labelEducation";
             this.labelEducation.Text = "Образование:";
 
-            this.textBoxUniversity.Location = new System.Drawing.Point(12, 277);
+            // move university up to the original department area
+            this.textBoxUniversity.Location = new System.Drawing.Point(120, 45);
             this.textBoxUniversity.PlaceholderText = "Учебное заведение";
             this.textBoxUniversity.Size = new System.Drawing.Size(200, 27);
+
+            // add a label for department in the lower area
+            var lblDeptBottom = new System.Windows.Forms.Label();
+            lblDeptBottom.AutoSize = true;
+            lblDeptBottom.Location = new System.Drawing.Point(12, 281);
+            lblDeptBottom.Name = "labelDepartmentBottom";
+            lblDeptBottom.Text = "Подразделение:";
+            this.Controls.Add(lblDeptBottom);
 
             this.numericUpDownGradYear.Location = new System.Drawing.Point(120, 310);
             this.numericUpDownGradYear.Maximum = 2100;
@@ -208,9 +220,18 @@ namespace UnivPersonnel.Forms
 
             this.buttonManageLookups.Location = new System.Drawing.Point(470, 10);
             this.buttonManageLookups.Name = "buttonManageLookups";
-            this.buttonManageLookups.Size = new System.Drawing.Size(80, 28);
-            this.buttonManageLookups.Text = "Справки";
+            this.buttonManageLookups.Size = new System.Drawing.Size(100, 28);
+            this.buttonManageLookups.Text = "Справочники";
             this.buttonManageLookups.Click += new System.EventHandler(this.buttonManageLookups_Click);
+
+            // profile label shown next to lookups button
+            this.labelLookupProfile = new System.Windows.Forms.Label();
+            this.labelLookupProfile.AutoSize = true;
+            this.labelLookupProfile.Location = new System.Drawing.Point(580, 14);
+            this.labelLookupProfile.Name = "labelLookupProfile";
+            this.labelLookupProfile.Text = "(По умолчанию)";
+            this.labelLookupProfile.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.Controls.Add(this.labelLookupProfile);
 
             var labelPassportNumber = new System.Windows.Forms.Label();
             labelPassportNumber.AutoSize = true;

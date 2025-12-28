@@ -8,6 +8,7 @@ namespace UnivPersonnel.Forms
         private System.Windows.Forms.Button buttonEditEmployee;
         private System.Windows.Forms.Button buttonDeleteEmployee;
         private System.Windows.Forms.Button buttonDetailsEmployee;
+        private System.Windows.Forms.Button buttonLookups;
 
         protected override void Dispose(bool disposing)
         {
@@ -38,7 +39,7 @@ namespace UnivPersonnel.Forms
             this.dataGridViewEmployees.Name = "dataGridViewEmployees";
             this.dataGridViewEmployees.RowHeadersWidth = 51;
             this.dataGridViewEmployees.RowTemplate.Height = 24;
-            this.dataGridViewEmployees.Size = new System.Drawing.Size(760, 390);
+            this.dataGridViewEmployees.Size = new System.Drawing.Size(880, 390);
             this.dataGridViewEmployees.TabIndex = 0;
             // 
             // buttonAddEmployee
@@ -81,13 +82,25 @@ namespace UnivPersonnel.Forms
             this.buttonDetailsEmployee.UseVisualStyleBackColor = true;
             this.buttonDetailsEmployee.Click += new System.EventHandler(this.buttonDetailsEmployee_Click);
             // 
+            // buttonLookups
+            // 
+            this.buttonLookups = new System.Windows.Forms.Button();
+            this.buttonLookups.Location = new System.Drawing.Point(650, 12);
+            this.buttonLookups.Name = "buttonLookups";
+            this.buttonLookups.Size = new System.Drawing.Size(120, 30);
+            this.buttonLookups.TabIndex = 5;
+            this.buttonLookups.Text = "Справочники";
+            this.buttonLookups.UseVisualStyleBackColor = true;
+            this.buttonLookups.Click += new System.EventHandler(this.buttonLookups_Click);
+            // 
             // MainForm
             // 
-            this.ClientSize = new System.Drawing.Size(784, 461);
+            this.ClientSize = new System.Drawing.Size(920, 461);
             this.Controls.Add(this.buttonAddEmployee);
             this.Controls.Add(this.buttonEditEmployee);
             this.Controls.Add(this.buttonDeleteEmployee);
             this.Controls.Add(this.buttonDetailsEmployee);
+            this.Controls.Add(this.buttonLookups);
             this.Controls.Add(this.dataGridViewEmployees);
             this.Name = "MainForm";
             this.Text = "Сотрудники университета";

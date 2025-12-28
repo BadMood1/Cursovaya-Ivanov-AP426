@@ -18,7 +18,7 @@ namespace UnivPersonnel.Forms
 
         public ManageLookupsForm()
         {
-            Text = "Управление справочниками";
+            Text = "Справочники";
             Width = 600;
             Height = 400;
 

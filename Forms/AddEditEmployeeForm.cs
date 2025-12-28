@@ -10,6 +10,9 @@ namespace UnivPersonnel.Forms
     public partial class AddEditEmployeeForm : Form
     {
         public Employee Employee { get; private set; }
+        private string _lastActiveProfile = "";
+        private string _lastUniversityName = "";
+        private bool _suspendUniversityChanged = false;
         private System.Windows.Forms.BindingSource bsPrev;
         private System.Windows.Forms.BindingSource bsPos;
         private System.Windows.Forms.BindingSource bsSan;
@@ -21,6 +24,11 @@ namespace UnivPersonnel.Forms
 
             // Load lookup lists first so ComboBoxes contain items before selecting values
             RefreshLookupItems();
+            // set active profile according to any prefilled University value when form opens
+            EnsureProfileFromUniversity();
+
+            // monitor university name changes so linked fields are reset when university changes
+            textBoxUniversity.TextChanged += TextBoxUniversity_TextChanged;
 
             bsPrev = new System.Windows.Forms.BindingSource();
             bsPos = new System.Windows.Forms.BindingSource();
@@ -56,7 +64,16 @@ namespace UnivPersonnel.Forms
             textBoxHomeAddress.Text = Employee.HomeAddress;
             textBoxPhone.Text = Employee.PhoneNumber;
             SetComboValue(comboBoxEducation, Employee.Education);
-            textBoxUniversity.Text = Employee.GraduatedUniversity;
+            // prevent TextChanged handler from clearing fields while we populate values
+            _suspendUniversityChanged = true;
+            try
+            {
+                textBoxUniversity.Text = Employee.GraduatedUniversity;
+            }
+            finally
+            {
+                _suspendUniversityChanged = false;
+            }
             numericUpDownGradYear.Value = Employee.GraduationYear;
             textBoxSpeciality.Text = Employee.Speciality;
             textBoxEducationDoc.Text = Employee.EducationDocument;
@@ -73,6 +90,52 @@ namespace UnivPersonnel.Forms
             bsPos.DataSource = Employee.PositionChanges;
             bsSan.DataSource = Employee.Sanctions;
             bsRew.DataSource = Employee.Rewards;
+
+            _lastUniversityName = textBoxUniversity.Text ?? "";
+            // show active profile next to lookups button if control exists
+            try { if (labelLookupProfile != null) labelLookupProfile.Text = $"({LookupService.GetActiveProfile()})"; } catch { }
+            // ensure profile matches the loaded university (if a profile exists for it)
+            EnsureProfileFromUniversity();
+        }
+
+        private void EnsureProfileFromUniversity()
+        {
+            try
+            {
+                var cur = (textBoxUniversity.Text ?? "").Trim();
+                var profiles = LookupService.GetProfiles().ToList();
+                var desired = profiles.Contains(cur) ? cur : "По умолчанию";
+                LookupService.SetActiveProfile(desired);
+                _lastActiveProfile = desired;
+                try { if (labelLookupProfile != null) labelLookupProfile.Text = $"({desired})"; } catch { }
+                // refresh lists for the selected profile (preserves education/degree in RefreshLookupItems)
+                RefreshLookupItems();
+            }
+            catch { }
+        }
+
+        private void TextBoxUniversity_TextChanged(object? sender, EventArgs e)
+        {
+            if (_suspendUniversityChanged) return;
+            var cur = (textBoxUniversity.Text ?? "").Trim();
+            if (cur == _lastUniversityName) return;
+
+            // determine profile: if exact match exists use it, otherwise fallback to default
+            var profiles = LookupService.GetProfiles().ToList();
+            var desired = profiles.Contains(cur) ? cur : "По умолчанию";
+            LookupService.SetActiveProfile(desired);
+
+            // University changed by user -> reset fields that depend on lookups (but DO NOT reset Education or Degree)
+            comboBoxDepartment.SelectedIndex = -1; comboBoxDepartment.Text = "";
+            comboBoxPosition.SelectedIndex = -1; comboBoxPosition.Text = "";
+            comboBoxTitle.SelectedIndex = -1; comboBoxTitle.Text = "";
+
+            // refresh lookups for the (possibly new) profile; this will preserve Education and Degree
+            RefreshLookupItems();
+
+            // update stored name and profile label
+            _lastUniversityName = cur;
+            try { if (labelLookupProfile != null) labelLookupProfile.Text = $"({LookupService.GetActiveProfile()})"; } catch { }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -157,6 +220,15 @@ namespace UnivPersonnel.Forms
         {
             try
             {
+                // remember current selections
+                var prevDept = comboBoxDepartment.Text;
+                var prevEducation = comboBoxEducation.Text;
+                var prevPosition = comboBoxPosition.Text;
+                var prevDegree = comboBoxDegree.Text;
+                var prevTitle = comboBoxTitle.Text;
+
+                var currentProfile = LookupService.GetActiveProfile();
+
                 comboBoxEducation.Items.Clear();
                 comboBoxEducation.Items.AddRange(LookupService.GetList("Образование").ToArray());
                 comboBoxDepartment.Items.Clear();
@@ -167,6 +239,27 @@ namespace UnivPersonnel.Forms
                 comboBoxDegree.Items.AddRange(LookupService.GetList("Учёная степень").ToArray());
                 comboBoxTitle.Items.Clear();
                 comboBoxTitle.Items.AddRange(LookupService.GetList("Учёное звание").ToArray());
+
+                // Always preserve Education and Degree values (they are protected)
+                SetComboValue(comboBoxEducation, prevEducation);
+                SetComboValue(comboBoxDegree, prevDegree);
+
+                // If profile unchanged, preserve other selections; otherwise clear dependent fields (but not education/degree)
+                if (!string.IsNullOrEmpty(_lastActiveProfile) && _lastActiveProfile == currentProfile)
+                {
+                    SetComboValue(comboBoxDepartment, prevDept);
+                    SetComboValue(comboBoxPosition, prevPosition);
+                    SetComboValue(comboBoxTitle, prevTitle);
+                }
+                else
+                {
+                    comboBoxDepartment.SelectedIndex = -1; comboBoxDepartment.Text = "";
+                    comboBoxPosition.SelectedIndex = -1; comboBoxPosition.Text = "";
+                    comboBoxTitle.SelectedIndex = -1; comboBoxTitle.Text = "";
+                }
+
+                _lastActiveProfile = currentProfile;
+                try { if (labelLookupProfile != null) labelLookupProfile.Text = $"({currentProfile})"; } catch { }
             }
             catch { }
         }
